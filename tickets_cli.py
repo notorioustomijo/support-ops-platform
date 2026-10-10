@@ -9,7 +9,7 @@ def load_tickets(path):
             for key, value in row.items():
                 if key == "status":
                     row[key] = value.strip().lower()
-        
+
         return ticket_list
     
 def filter_by_status(tickets, status):
@@ -45,6 +45,21 @@ def count_by_status(tickets):
     return ticket_counts
 
 
+def get_ticket(tickets, ticket_id):
+    """Takes a list of tickets and ticket_id and returns a ticket dict matching the provided id or None if there isn't one."""
+    wanted_id = str(ticket_id)
+    # Look through the tickets
+    for ticket in tickets:
+        # find the ticket that matches the id
+        if ticket["id"] == wanted_id:
+            # Return the ticket
+            return ticket
+    
+
+    # Return None if no ticket matches
+    return None
+        
+
 
 
 def main():
@@ -62,8 +77,9 @@ def main():
     print(f"\n=========== Open Tickets ==============\n")
     display_tickets(filter_by_status(tickets, "open"))
 
+    wanted = get_ticket(tickets, "99")
+    print(wanted)
+
 
 if __name__ == "__main__":
     main()
-
-
