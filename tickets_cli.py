@@ -64,7 +64,7 @@ def main():
     try:
         tickets = load_tickets("tickets.csv")
     except FileNotFoundError as e:
-        print(f"{e}. Check the filename and try again.")
+        print(f"Could not load tickets. '{e.filename}' doesn't match any files. Check the filename and try again.")
         return
     
     ticket_counts = count_by_status(tickets)
