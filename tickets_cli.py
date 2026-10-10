@@ -1,14 +1,14 @@
 import csv
 
 def load_tickets(path):
-    """Converts a csv file with tickets into a list of dicts and returns a normalized version of the list."""
+    """Reads tickets from a CSV file. Returns a list of dicts or raises a FileNotFoundError if file is missing."""
     with open(path, newline='') as f:
         ticket_list = list(csv.DictReader(f))
 
-        for row in ticket_list:
-            row['status'] = row['status'].strip().lower()
+    for row in ticket_list:
+        row['status'] = row['status'].strip().lower()
 
-        return ticket_list
+    return ticket_list
     
 def filter_by_status(tickets, status):
     wanted = status.strip().lower()
@@ -61,8 +61,12 @@ def get_ticket(tickets, ticket_id):
 
 
 def main():
-    tickets = load_tickets("tickets.csv")
-
+    try:
+        tickets = load_tickets("tickets.csv")
+    except FileNotFoundError as e:
+        print(f"{e}. Check the filename and try again.")
+        return
+    
     ticket_counts = count_by_status(tickets)
 
     print(f"=========== Ticket Stats ==============\n")
@@ -74,9 +78,6 @@ def main():
 
     print(f"\n=========== Open Tickets ==============\n")
     display_tickets(filter_by_status(tickets, "open"))
-
-    wanted = get_ticket(tickets, "99")
-    print(wanted)
 
 
 if __name__ == "__main__":
