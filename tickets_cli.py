@@ -6,9 +6,7 @@ def load_tickets(path):
         ticket_list = list(csv.DictReader(f))
 
         for row in ticket_list:
-            for key, value in row.items():
-                if key == "status":
-                    row[key] = value.strip().lower()
+            row['status'] = row['status'].strip().lower()
 
         return ticket_list
     
