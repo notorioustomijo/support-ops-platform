@@ -1,3 +1,10 @@
 __pycache__
 .venv/
 .env
+docs.md
+drill.py
+tickets_bad.csv
+tickets.json
+tickets_nodesc.csv
+empty.csv
+bad.json
